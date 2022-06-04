@@ -6,7 +6,8 @@
         "base/_base.scss",
         "base/_typography.scss",
         "components/_glassmorphism.scss",
-        "pages/_home.scss"
+        "pages/_home.scss",
+        "abstracts/_variables.scss"
     ],
     "names": [],
     "file": "main.css"
