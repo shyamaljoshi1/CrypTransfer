@@ -48,6 +48,32 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
+.navbar {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.navbar__logo {
+  display: inherit;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.navbar__list {
+  color: #eee;
+}
+
 .gradient-bg-welcome {
   background-color: #0f0e13;
   background-image: radial-gradient(at 0% 0%, #100f15 0, transparent 50%), radial-gradient(at 50% 0%, #2f3e6a 0, transparent 50%), radial-gradient(at 100% 0%, #722741 0, transparent 50%);

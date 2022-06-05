@@ -15,11 +15,11 @@ const Navbar = () => {
   const [Toggle,setToggle] = useState(false);
 
   return (
-    <nav className="w-full flex md:justify-center justify-between items-center p-4">
-      <div className="md:flex-[0.5] flex-initial justify-center items-center">
+    <nav className="w-full navbar p-4 md:justify-center">
+      <div className="md:flex-[0.5] flex-initial navbar__logo">
         <img src={logo} alt="logo" className="w-32" />
       </div>
-      <ul className="text-[#eee] md:flex hidden list-none flex-row justify-between items-center flex-initial">
+      <ul className=" navbar__list md:flex hidden list-none flex-row justify-between items-center flex-initial">
         {["Market","Exchange","Tutorials","Wallets"].map((item,index)=>(
           <NavbarMenu key={item+index} title={item} />
         ))}

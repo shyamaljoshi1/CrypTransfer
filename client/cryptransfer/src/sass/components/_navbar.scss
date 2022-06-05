@@ -1,0 +1,17 @@
+.navbar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    &__logo{
+        display: inherit;
+        justify-content: space-between;
+        align-items: center;
+        //flex-initial justify-center items-center
+    }
+    &__list{
+        color: #eee;
+        //hidden list-none flex-row justify-between items-center
+    }
+    
+//flex md:justify-center justify-between items-center p-4
+}
