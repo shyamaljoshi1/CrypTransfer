@@ -3,6 +3,7 @@ import { AiFillPlayCircle } from 'react-icons/ai';
 import { SiEthereum } from 'react-icons/si';
 import { BsInfoCircle } from 'react-icons/bs';
 import { TransactionContext } from '../context/TransactionContext';
+import { shortenAddress } from '../utils/shortenAddress';
 
 //import { loader } from './';
 import Loader from './Loader';
@@ -22,7 +23,7 @@ const Input = ({placeholder,name,type,value,handleChange}) => (
 
 const Welcome = () => {
 
-  const {connectWallet,currentAcount,formData,sendTransaction,handleChange} = useContext(TransactionContext);
+  const {connectWallet,currentAccount,formData,sendTransaction,handleChange} = useContext(TransactionContext);
 
 const handleSubmit=(e)=>{
   const{addressTo,amount,keyword,message}=formData;
@@ -44,7 +45,7 @@ const handleSubmit=(e)=>{
             Explore the crypto world. Buy and sell cryptocurrencies easily on Crypto.
 
           </p>
-          {currentAcount &&
+          {!currentAccount &&
             <button
             type="button"
             onClick={connectWallet}
@@ -87,7 +88,7 @@ const handleSubmit=(e)=>{
               </div>
               <div>
                 <p className="text-white font-light text-sm">
-                  Address
+                  {shortenAddress(currentAccount)}
 
                 </p>
                 <p className="text-white font-semibold text-lg mt-1">

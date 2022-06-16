@@ -16,7 +16,7 @@ const getEthereumContract=()=>{
 }
 
 export const TransactionProvider=({children})=>{
-    const [currentAccount, setcurrentAccount] = useState('');
+    const [currentAccount, setcurrentAccount] = useState("");
     const [formData, setformData] = useState({addressTo:'',amount:'',keyword:'',message:''});
     const [isLoading, setisLoading] = useState(false);
     const [transactionCount, settransactionCount] = useState(localStorage.getItem('transactionCount'));
@@ -55,8 +55,10 @@ export const TransactionProvider=({children})=>{
             if(!ethereum)return alert("Please install metamask");
             const accounts=await ethereum.request({method:'eth_requestAccounts'});
             setcurrentAccount(accounts[0]);
+            window.location.reload();
         } catch(error) {
-            
+            console.log(error);
+            throw new Error("No ethereum object");
         }
     }
         
