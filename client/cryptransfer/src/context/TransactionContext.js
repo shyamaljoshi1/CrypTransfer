@@ -20,9 +20,30 @@ export const TransactionProvider=({children})=>{
     const [formData, setformData] = useState({addressTo:'',amount:'',keyword:'',message:''});
     const [isLoading, setisLoading] = useState(false);
     const [transactionCount, settransactionCount] = useState(localStorage.getItem('transactionCount'));
+    const [transaction, setTransaction] = useState([]);
 
     const handleChange=(e,name)=>{
         setformData((prevState)=>({...prevState,[name]:e.target.value}));
+    }
+
+    const getAllTransactions=async()=>{
+        try{
+            if(!ethereum)return alert("Please install metamask");
+            const transactionContract = getEthereumContract();
+            const availableTransaction=await transactionContract.getAllTransactions();
+            const structuredTransaction=availableTransaction.map((transaction)=>({
+                addressTo:transaction.receiver,
+                addressFrom:transaction.sender,
+                timestamp: new Date(transaction.timestamp.toNumber() * 1000).toLocaleString(),
+                message:transaction.message,
+                keyword:transaction.keyword,
+                amount: parseInt(transaction.amount._hex) / (10 ** 18)
+            }))
+            setTransaction(structuredTransaction);
+            console.log(structuredTransaction);
+        }catch(error){
+            console.log(error);
+        }
     }
   
 
@@ -35,6 +56,7 @@ export const TransactionProvider=({children})=>{
 
             if(accounts.length){
                 setcurrentAccount(accounts[0]);
+                getAllTransactions();
             }
             else{
                 console.log("No account found");
@@ -50,6 +72,17 @@ export const TransactionProvider=({children})=>{
         //console.log(accounts);
     }
     
+    const checkIfTransactionExists=async()=>{
+        try{
+            const transactionContract = getEthereumContract();
+            const transactionCount=await transactionContract.getTransactionCount();
+            window.localStorage.setItem("transactionCount",transactionCount);
+        }catch(error){
+            console.log(error);
+            throw new Error("No ethereum object");
+        }
+    }
+
     const connectWallet=async()=>{
         try{
             if(!ethereum)return alert("Please install metamask");
@@ -95,10 +128,11 @@ export const TransactionProvider=({children})=>{
 
     useEffect(()=>{
     checkIfWalletIsConnected();
+    checkIfTransactionExists();
     },[]);
 
     return(
-        <TransactionContext.Provider value={{connectWallet,currentAccount,formData,setformData,handleChange,sendTransaction}}>
+        <TransactionContext.Provider value={{connectWallet,currentAccount,formData,setformData,handleChange,sendTransaction,transaction,isLoading}}>
             {children}
         </TransactionContext.Provider>
     );
